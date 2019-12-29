@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <draw-pile :deck="deck" :player_hand="player_hand" :computer_hand="computer_hand"></draw-pile>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import DrawPile from "./components/DrawPile.vue"
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    "draw-pile": DrawPile
+  },
+  data(){
+    return{
+      deck: [],
+      player_hand: [],
+      computer_hand: []
+    }
+  },
+  mounted(){
+    fetch("https://deckofcardsapi.com/api/deck/rbobbhmjlf7z/shuffle/")
+    .then(res => res.json())
+    .then(data => this.deck = data)
+
+    fetch("https://deckofcardsapi.com/api/deck/rbobbhmjlf7z/draw/?count=7")
+    .then(res => res.json())
+    .then(data => this.player_hand = data)
+
+    fetch("https://deckofcardsapi.com/api/deck/rbobbhmjlf7z/draw/?count=7")
+    .then(res => res.json())
+    .then(data => this.computer_hand = data)
   }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

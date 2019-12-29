@@ -6,6 +6,7 @@
 
 <script>
 import DrawPile from "./components/DrawPile.vue"
+import {eventBus} from "./main.js"
 
 export default {
   name: "app",
@@ -20,22 +21,34 @@ export default {
     }
   },
   mounted(){
-    fetch("https://deckofcardsapi.com/api/deck/rbobbhmjlf7z/shuffle/")
+    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/")
     .then(res => res.json())
     .then(data => this.deck = data)
 
-    fetch("https://deckofcardsapi.com/api/deck/rbobbhmjlf7z/draw/?count=7")
+    eventBus.$on('draw-cards', (draw_number) => {
+    fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
     .then(res => res.json())
     .then(data => this.player_hand = data)
+    })
 
-    fetch("https://deckofcardsapi.com/api/deck/rbobbhmjlf7z/draw/?count=7")
+    eventBus.$on('draw-opponent-cards', (draw_number) => {
+    fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
     .then(res => res.json())
     .then(data => this.computer_hand = data)
+    })
+    //
+    // fetch("https://deckofcardsapi.com/api/deck/rbobbhmjlf7z/draw/?count=7")
+    // .then(res => res.json())
+    // .then(data => this.computer_hand = data)
   }
 }
 
 </script>
 
 <style>
+
+  body {
+    background-color: green;
+  }
 
 </style>

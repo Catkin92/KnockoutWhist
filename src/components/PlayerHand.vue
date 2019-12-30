@@ -1,13 +1,20 @@
 <template lang="html">
   <div>
-    <li><img :src="card.images.png"></li>
+    <li @click="playCard"><img :src="card.images.png"></li>
   </div>
 </template>
 
 <script>
+import {eventBus} from "../main.js"
+
 export default {
   name: "player-hand",
-  props: ["card"]
+  props: ["card"],
+  methods: {
+    playCard(){
+      eventBus.$emit("play-card", (this.card))
+    }
+  }
 }
 </script>
 

@@ -10,6 +10,9 @@
     <br>
     <br>
     <br>
+    <div v-if="played_card">
+      <img :src="played_card.image">
+    </div>
     <br>
     <br>
     <br>
@@ -33,11 +36,21 @@ export default {
   components: {
     "player-hand": PlayerHand
   },
+  data(){
+    return{
+      played_card: []
+    }
+  },
   methods: {
     newGame(){
       eventBus.$emit('draw-cards', 7);
       eventBus.$emit('draw-opponent-cards', 7)
     }
+  },
+  mounted() {
+    eventBus.$on('play-card', (card) => {
+      this.played_card = card
+    })
   }
 }
 </script>

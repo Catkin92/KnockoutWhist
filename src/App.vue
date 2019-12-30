@@ -1,6 +1,6 @@
 <template>
   <div>
-    <draw-pile :deck="deck" :player_hand="player_hand" :computer_hand="computer_hand"></draw-pile>
+    <draw-pile :deck="deck" :player_hand="player_hand" :computer_hand="computer_hand" :played_card="played_card"></draw-pile>
   </div>
 </template>
 
@@ -17,7 +17,8 @@ export default {
     return{
       deck: [],
       player_hand: [],
-      computer_hand: []
+      computer_hand: [],
+      played_card: []
     }
   },
   mounted(){
@@ -35,6 +36,11 @@ export default {
     fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
     .then(res => res.json())
     .then(data => this.computer_hand = data)
+    })
+
+    eventBus.$on('play-card', (picked_card) => {
+      this.played_card = picked_card;
+      this.player_hand.cards.splice(this.player_hand.cards.indexOf(picked_card), 1)
     })
     //
     // fetch("https://deckofcardsapi.com/api/deck/rbobbhmjlf7z/draw/?count=7")

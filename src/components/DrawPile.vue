@@ -8,13 +8,9 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
     <div v-if="played_card">
       <img :src="played_card.image">
     </div>
-    <br>
-    <br>
     <br>
     <br>
     <br>
@@ -32,15 +28,15 @@ import PlayerHand from "./PlayerHand.vue"
 
 export default {
   name: "draw-pile",
-  props: ["deck", "player_hand", "computer_hand"],
+  props: ["deck", "player_hand", "computer_hand", "played_card"],
   components: {
     "player-hand": PlayerHand
   },
-  data(){
-    return{
-      played_card: []
-    }
-  },
+  // data(){
+  //   return{
+  //     played_card: []
+  //   }
+  // },
   methods: {
     newGame(){
       eventBus.$emit('draw-cards', 7);
@@ -48,9 +44,12 @@ export default {
     }
   },
   mounted() {
-    eventBus.$on('play-card', (card) => {
-      this.played_card = card
-    })
+    // eventBus.$on('play-card', (picked_card) => {
+    //   this.played_card = picked_card;
+    //   console.log(this.player_hand.filter(card => {
+    //     card.code !== picked_card.code
+    //   }))
+    // })
   }
 }
 </script>

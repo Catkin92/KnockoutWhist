@@ -3,14 +3,12 @@
     <button @click="newGame">New Game</button>
     <h1>Computer</h1>
     <ul id="computer-hand">
-      <li v-for="card in computer_hand.cards"><img :src="card.images.png"></li>
+      <computer-hand v-for="card in computer_hand.cards" :card="card"></computer-hand>
     </ul>
     <br>
     <br>
     <br>
-    <div v-if="played_card">
       <img :src="played_card.image">
-    </div>
     <br>
     <br>
     <br>
@@ -25,30 +23,23 @@
 <script>
 import {eventBus} from "../main.js"
 import PlayerHand from "./PlayerHand.vue"
+import ComputerHand from "./ComputerHand.vue"
 
 export default {
   name: "draw-pile",
   props: ["deck", "player_hand", "computer_hand", "played_card"],
   components: {
-    "player-hand": PlayerHand
+    "player-hand": PlayerHand,
+    "computer-hand": ComputerHand
   },
-  // data(){
-  //   return{
-  //     played_card: []
-  //   }
-  // },
+
   methods: {
     newGame(){
       eventBus.$emit('draw-cards', 7);
     }
   },
   mounted() {
-    // eventBus.$on('play-card', (picked_card) => {
-    //   this.played_card = picked_card;
-    //   console.log(this.player_hand.filter(card => {
-    //     card.code !== picked_card.code
-    //   }))
-    // })
+
   }
 }
 </script>

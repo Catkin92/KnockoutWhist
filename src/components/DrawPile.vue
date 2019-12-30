@@ -40,7 +40,6 @@ export default {
   methods: {
     newGame(){
       eventBus.$emit('draw-cards', 7);
-      eventBus.$emit('draw-opponent-cards', 7)
     }
   },
   mounted() {

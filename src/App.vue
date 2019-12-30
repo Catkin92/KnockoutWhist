@@ -27,16 +27,15 @@ export default {
     .then(data => this.deck = data)
 
     eventBus.$on('draw-cards', (draw_number) => {
-    fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
-    .then(res => res.json())
-    .then(data => this.player_hand = data)
-    this.played_card = []
-    })
+      fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
+      .then(res => res.json())
+      .then(data => this.player_hand = data)
 
-    eventBus.$on('draw-opponent-cards', (draw_number) => {
-    fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
-    .then(res => res.json())
-    .then(data => this.computer_hand = data)
+      fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
+      .then(res => res.json())
+      .then(data => this.computer_hand = data)
+
+      this.played_card = []
     })
 
     eventBus.$on('play-card', (picked_card) => {

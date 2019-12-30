@@ -17,7 +17,7 @@
     <br>
     <br>
     <ul id="player-hand">
-      <li v-for="card in player_hand.cards"><img :src="card.images.png"></li>
+      <player-hand v-for="card in player_hand.cards" :card="card"></player-hand>
     </ul>
     <h1>Player</h1>
   </div>
@@ -25,10 +25,14 @@
 
 <script>
 import {eventBus} from "../main.js"
+import PlayerHand from "./PlayerHand.vue"
 
 export default {
   name: "draw-pile",
   props: ["deck", "player_hand", "computer_hand"],
+  components: {
+    "player-hand": PlayerHand
+  },
   methods: {
     newGame(){
       eventBus.$emit('draw-cards', 7);
@@ -44,11 +48,6 @@ export default {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-  }
-
-  #player-hand li:hover {
-    position: relative;
-    top: -2vh;
   }
 
 </style>

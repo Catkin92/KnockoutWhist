@@ -1,17 +1,17 @@
 <template>
   <div>
-    <draw-pile :deck="deck" :player_hand="player_hand" :computer_hand="computer_hand" :played_card="played_card"></draw-pile>
+    <game-table :deck="deck" :player_hand="player_hand" :computer_hand="computer_hand" :played_card="played_card"></game-table>
   </div>
 </template>
 
 <script>
-import DrawPile from "./components/DrawPile.vue"
+import GameTable from "./components/GameTable.vue"
 import {eventBus} from "./main.js"
 
 export default {
   name: "app",
   components: {
-    "draw-pile": DrawPile
+    "game-table": GameTable
   },
   data(){
     return{
@@ -38,7 +38,7 @@ export default {
 
       this.played_card = []
     })
-    
+
     // PICKED CARD PLAYED AND REMOVED FROM HAND
     eventBus.$on('play-card', (picked_card) => {
       this.played_card = picked_card;

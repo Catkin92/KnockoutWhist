@@ -1,22 +1,23 @@
 <template lang="html">
   <div>
     <button @click="newGame">New Game</button>
-    <h1>Computer</h1>
-    <ul id="computer-hand">
-      <computer-hand v-for="card in computer_hand.cards" :card="card"></computer-hand>
-    </ul>
-    <br>
-    <br>
-    <br>
-      <img :src="played_card.image">
-    <br>
-    <br>
-    <br>
-    <br>
-    <ul id="player-hand">
-      <player-hand v-for="card in player_hand.cards" :card="card"></player-hand>
-    </ul>
-    <h1>Player</h1>
+      <div id="game-board">
+        <div id="computer-hand">
+          <h1>Computer</h1>
+          <ul>
+          <computer-hand v-for="card in computer_hand.cards" :card="card"></computer-hand>
+          </ul>
+        </div>
+      <div id="playing">
+        <img :src="played_card.image">
+      </div>
+      <div id="player-hand">
+        <ul>
+          <player-hand v-for="card in player_hand.cards" :card="card"></player-hand>
+        </ul>
+        <h1>Player</h1>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,6 +46,17 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+  #game-board {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  #playing {
+    align-self: center;
+    margin-left: 3vw;
+  }
 
   ul {
     list-style: none;

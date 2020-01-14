@@ -3,17 +3,15 @@
     <button @click="newGame">New Game</button>
       <div id="game-board">
         <div id="computer-hand">
-          <h1>Computer</h1>
-          <computer-hand v-for="card in computer_hand.cards" :card="card" :played_card="played_card"></computer-hand>
+            <computer-hand v-for="card in computer_hand.cards" :card="card" :played_card="played_card"></computer-hand>
         </div>
-      <div id="playing">
-        <img :src="played_card.image">
+        <div id="playing">
+          <img :src="played_card.image">
+        </div>
+        <div id="player-hand">
+          <player-hand :player_hand="player_hand"></player-hand>
+        </div>
       </div>
-      <div id="player-hand">
-          <player-hand v-for="card in player_hand.cards" :card="card"></player-hand>
-        <h1>Player</h1>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -45,19 +43,34 @@ export default {
 
   #game-board {
     display: grid;
-    grid-template-columns: 1fr;
+    /* grid-template-columns: 1fr; */
     grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  #game-board > div {
+    display: flex;
   }
 
   #playing {
     align-self: center;
     margin-left: 3vw;
+    grid-row: 2 / 3;
   }
 
-  ul {
+  /* #computer-hand, #player-hand {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+  } */
+
+  #computer-hand {
+    grid-row: 1 / 2;
+    list-style: none;
+  }
+
+  #player-hand {
+    grid-row: 3 / 4;
+    list-style: none;
   }
 
 </style>

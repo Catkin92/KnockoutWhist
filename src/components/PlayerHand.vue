@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <li @click="playCard"><img :src="card.images.png"></li>
+    <img v-for="card in player_hand.cards" @click="playCard(card)" :src="card.images.png">
   </div>
 </template>
 
@@ -9,16 +9,20 @@ import {eventBus} from "../main.js"
 
 export default {
   name: "player-hand",
-  props: ["card"],
+  props: ["player_hand"],
   methods: {
-    playCard(){
-      eventBus.$emit("play-card", (this.card))
+    playCard(card){
+      eventBus.$emit("play-card", (card))
     }
   }
 }
 </script>
 
 <style lang="css" scoped>
+
+div {
+  display: flex;
+}
 
 li:hover {
   position: relative;

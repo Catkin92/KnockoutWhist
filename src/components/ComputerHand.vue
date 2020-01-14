@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <li><img :src="card.images.png"></li>
+    <img v-for="card in computer_hand.cards" :src="card.images.png">
   </div>
 </template>
 
@@ -9,15 +9,15 @@ import {eventBus} from "../main.js"
 
 export default {
   name: "computer-hand",
-  props: ["card", "played_card"],
+  props: ["computer_hand"],
   computed: {
-    playSecond(){
-      // console.log(this.played_card)
-    }
+    // playSecond(played_card){
+    //   console.log(played_card);
+    // }
   },
   mounted(){
     eventBus.$on("play-card", (played_card) => {
-      console.log(played_card)
+      console.log(played_card);
     })
   }
 }

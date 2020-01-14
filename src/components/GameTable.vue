@@ -3,7 +3,7 @@
     <button @click="newGame">New Game</button>
       <div id="game-board">
         <div id="computer-hand">
-            <computer-hand v-for="card in computer_hand.cards" :card="card" :played_card="played_card"></computer-hand>
+            <computer-hand :computer_hand="computer_hand" :played_card="played_card"></computer-hand>
         </div>
         <div id="playing">
           <img :src="played_card.image">

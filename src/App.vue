@@ -26,7 +26,7 @@ export default {
     .then(res => res.json())
     .then(data => this.deck = data)
 
-    // NEW GAME -- DRAW & CARDS EACH
+    // NEW GAME -- DRAW X CARDS EACH
     eventBus.$on('draw-cards', (draw_number) => {
       fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
       .then(res => res.json())
@@ -40,9 +40,10 @@ export default {
     })
 
     // PICKED CARD PLAYED AND REMOVED FROM HAND
-    eventBus.$on('play-card', (picked_card) => {
-      this.played_card = picked_card;
-      this.player_hand.cards.splice(this.player_hand.cards.indexOf(picked_card), 1)
+    eventBus.$on('play-card', (played_card) => {
+      this.played_card = played_card;
+      const cards = this.player_hand.cards;
+      cards.splice(cards.indexOf(played_card), 1);
     })
 
   }

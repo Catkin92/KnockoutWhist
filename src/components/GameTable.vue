@@ -2,15 +2,19 @@
   <div>
     <button @click="newGame">New Game</button>
       <div id="game-board">
+        
         <div id="computer-hand">
-            <computer-hand :computer_hand="computer_hand" :played_card="played_card"></computer-hand>
+            <computer-hand :computer_hand="computer_hand"></computer-hand>
         </div>
+
         <div id="playing">
           <img :src="played_card.image">
         </div>
+
         <div id="player-hand">
           <player-hand :player_hand="player_hand"></player-hand>
         </div>
+
       </div>
   </div>
 </template>
@@ -32,9 +36,6 @@ export default {
     newGame(){
       eventBus.$emit('draw-cards', 7);
     }
-  },
-  mounted() {
-
   }
 }
 </script>
@@ -43,34 +44,32 @@ export default {
 
   #game-board {
     display: grid;
-    /* grid-template-columns: 1fr; */
     grid-template-rows: 1fr 1fr 1fr;
   }
 
-  #game-board > div {
+  /* #game-board > div {
     display: flex;
-  }
+  } */
 
   #playing {
-    align-self: center;
     margin-left: 3vw;
     grid-row: 2 / 3;
   }
 
-  /* #computer-hand, #player-hand {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  } */
+  #computer_hand, #player_hand {
+    display: flex;
+  }
 
   #computer-hand {
     grid-row: 1 / 2;
     list-style: none;
+    margin-bottom: 2vh;
   }
 
   #player-hand {
     grid-row: 3 / 4;
     list-style: none;
+    margin-top: 2vh;
   }
 
 </style>

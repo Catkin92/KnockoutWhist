@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <img v-for="card in player_hand.cards" @click="playCard(card)" :src="card.images.png">
+    <img v-for="card in player_hand" @click="playCard(card)" :src="card.images.png">
   </div>
 </template>
 

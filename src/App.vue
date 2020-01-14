@@ -30,11 +30,11 @@ export default {
     eventBus.$on('draw-cards', (draw_number) => {
       fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
       .then(res => res.json())
-      .then(data => this.player_hand = data)
+      .then(data => this.player_hand = data.cards)
 
       fetch("https://deckofcardsapi.com/api/deck/" + this.deck.deck_id +"/draw/?count=" + draw_number)
       .then(res => res.json())
-      .then(data => this.computer_hand = data)
+      .then(data => this.computer_hand = data.cards)
 
       this.played_card = []
     })
@@ -42,7 +42,7 @@ export default {
     // PICKED CARD PLAYED AND REMOVED FROM HAND
     eventBus.$on('play-card', (played_card) => {
       this.played_card = played_card;
-      const cards = this.player_hand.cards;
+      const cards = this.player_hand;
       cards.splice(cards.indexOf(played_card), 1);
     })
 

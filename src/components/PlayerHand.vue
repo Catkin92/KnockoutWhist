@@ -13,6 +13,7 @@ export default {
   methods: {
     playCard(card){
       eventBus.$emit("play-card", (card))
+      eventBus.$emit("computer-response", (card))
     }
   }
 }

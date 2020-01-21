@@ -11,14 +11,17 @@ export default {
   name: "computer-hand",
   props: ["computer_hand"],
   methods: {
-    playSecond(card){
-      console.log(card);
-    }
+    playSecond(){
+        const array = this.computer_hand.forEach(card => card.code);
+        return array;
+      }
   },
   mounted() {
-    eventBus.$on("play-card", (played_card) => {
-      this.playSecond(played_card);
-    })
+    // eventBus.$on("play-card", (played_card) => {
+    //   const array = this.computer_hand.forEach(card => card.code);
+    //   console.log(array);
+      // eventBus.$emit("computer-response", computer_card);
+    
   }
 }
 </script>

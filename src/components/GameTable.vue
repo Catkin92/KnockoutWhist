@@ -2,13 +2,16 @@
   <div>
     <button @click="newGame">New Game</button>
       <div id="game-board">
-        
+
         <div id="computer-hand">
             <computer-hand :computer_hand="computer_hand"></computer-hand>
         </div>
 
         <div id="playing">
+          <h4>Player card</h4>
           <img :src="played_card.image">
+          <h4>Computer Card</h4>
+          <img :src="computer_card.image">
         </div>
 
         <div id="player-hand">
@@ -26,7 +29,7 @@ import ComputerHand from "./ComputerHand.vue"
 
 export default {
   name: "game-table",
-  props: ["deck", "player_hand", "computer_hand", "played_card"],
+  props: ["deck", "player_hand", "computer_hand", "played_card", "computer_card"],
   components: {
     "player-hand": PlayerHand,
     "computer-hand": ComputerHand
@@ -47,17 +50,13 @@ export default {
     grid-template-rows: 1fr 1fr 1fr;
   }
 
-  /* #game-board > div {
+  #game-board > div {
     display: flex;
-  } */
+  }
 
   #playing {
     margin-left: 3vw;
     grid-row: 2 / 3;
-  }
-
-  #computer_hand, #player_hand {
-    display: flex;
   }
 
   #computer-hand {

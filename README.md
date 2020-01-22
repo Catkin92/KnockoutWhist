@@ -1,4 +1,4 @@
-# whist
+# Knockout Whist
 
 ## Project setup
 ```

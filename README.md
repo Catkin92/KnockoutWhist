@@ -1,5 +1,6 @@
 # Knockout Whist (work in progress)
-I started this project based on the card game Knockout Whist in late December as a way to explore game logic. The game is trick based, with one fewer cards being handed out each round.
+I started this project based on the card game Knockout Whist in late December as a way to explore game logic. The game is trick based, with one fewer cards being handed out each round. Full instructions for the game can be found here: https://www.pagat.com/whist/kowhist.html
+
 I'm using https://deckofcardsapi.com/ for the deck, writing in Javascript using Vue as a framework.
 
 # Notes On Progression

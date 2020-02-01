@@ -23,52 +23,56 @@
 </template>
 
 <script>
-import {eventBus} from "../main.js"
-import PlayerHand from "./PlayerHand.vue"
-import ComputerHand from "./ComputerHand.vue"
+import { eventBus } from "../main.js";
+import PlayerHand from "./PlayerHand.vue";
+import ComputerHand from "./ComputerHand.vue";
 
 export default {
   name: "game-table",
-  props: ["deck", "player_hand", "computer_hand", "played_card", "computer_card"],
+  props: [
+    "deck",
+    "player_hand",
+    "computer_hand",
+    "played_card",
+    "computer_card"
+  ],
   components: {
     "player-hand": PlayerHand,
     "computer-hand": ComputerHand
   },
 
   methods: {
-    newGame(){
-      eventBus.$emit('draw-cards', 7);
+    newGame() {
+      eventBus.$emit("draw-cards", 7);
     }
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
+#game-board {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
 
-  #game-board {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-  }
+#game-board > div {
+  display: flex;
+}
 
-  #game-board > div {
-    display: flex;
-  }
+#playing {
+  margin-left: 3vw;
+  grid-row: 2 / 3;
+}
 
-  #playing {
-    margin-left: 3vw;
-    grid-row: 2 / 3;
-  }
+#computer-hand {
+  grid-row: 1 / 2;
+  list-style: none;
+  margin-bottom: 2vh;
+}
 
-  #computer-hand {
-    grid-row: 1 / 2;
-    list-style: none;
-    margin-bottom: 2vh;
-  }
-
-  #player-hand {
-    grid-row: 3 / 4;
-    list-style: none;
-    margin-top: 2vh;
-  }
-
+#player-hand {
+  grid-row: 3 / 4;
+  list-style: none;
+  margin-top: 2vh;
+}
 </style>

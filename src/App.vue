@@ -28,6 +28,26 @@ export default {
       computer_card: []
     };
   },
+  methods: {
+    getCardValue(card) {
+      switch (card.value) {
+        case "JACK":
+          return 11;
+          break;
+        case "QUEEN":
+          return 12;
+          break;
+        case "KING":
+          return 13;
+          break;
+        case "ACE":
+          return 14;
+          break;
+        default:
+          return parseInt(card.value);
+      }
+    }
+  },
   mounted() {
     fetch("https://deckofcardsapi.com/api/deck/new/shuffle/")
       .then(res => res.json())
@@ -65,19 +85,34 @@ export default {
     });
 
     // COMPUTER REPONSE CARD PLAYED AND REMOVED FROM HAND
-    eventBus.$on("computer-response", (value, suit) => {
-
-      console.log(value)
-      // const card = this.computer_hand.find(
-      //   card =>
-      //     played_card.suit === card.suit &&
-      //     parseInt(card.value) > parseInt(played_card.value)
+    eventBus.$on("computer-plays", (cardValue, suit) => {
+      let response = this.computer_hand.find(card => {
+        return this.getCardValue(card) > cardValue && card.suit === suit;
+      });
+      if (response) {
+        this.computer_card = response;
+        this.computer_hand.splice(this.computer_hand.indexOf(this.computer_card), 1);
+      } else {
+        response = this.computer_hand.find(card => {
+          return card.suit === suit;
+        });
+        if (response) {
+          this.computer_card = response;
+          this.computer_hand.splice(
+            this.computer_hand.indexOf(this.computer_card),
+            1
+          );
+        } else {
+          this.computer_card = this.computer_hand[0];
+          this.computer_hand.splice(
+            this.computer_hand.indexOf(this.computer_card),
+            1
+          );
+        }
+      }
     });
-
-      
-    }
   }
-
+};
 </script>
 
 <style>

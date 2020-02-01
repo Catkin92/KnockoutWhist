@@ -4,6 +4,7 @@
       <div id="game-board">
 
         <div id="computer-hand">
+            <h4>Tricks: {{computer_tricks}}</h4>
             <computer-hand :computer_hand="computer_hand"></computer-hand>
         </div>
 
@@ -15,6 +16,7 @@
         </div>
 
         <div id="player-hand">
+          <h4>Tricks: {{player_tricks}}</h4>
           <player-hand :player_hand="player_hand"></player-hand>
         </div>
 
@@ -34,7 +36,9 @@ export default {
     "player_hand",
     "computer_hand",
     "played_card",
-    "computer_card"
+    "computer_card",
+    "player_tricks",
+    "computer_tricks"
   ],
   components: {
     "player-hand": PlayerHand,

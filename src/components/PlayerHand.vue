@@ -33,7 +33,6 @@ export default {
         default:
           this.card_value = parseInt(card.value)
       }
-      // console.log(cardValue)
       eventBus.$emit("play-card", card);
       eventBus.$emit("computer-plays", this.card_value, card.suit);
     }

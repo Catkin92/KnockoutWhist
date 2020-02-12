@@ -52,7 +52,8 @@ export default {
       }
     },
     removeComputerCard() {
-      this.computer_hand.splice(this.computer_hand.indexOf(this.computer_card), 1);
+      this.computer_hand.splice(this.computer_hand
+        .indexOf(this.computer_card), 1);
     }
   },
   mounted() {
@@ -88,29 +89,65 @@ export default {
     // COMPUTER REPONSE CARD PLAYED AND REMOVED FROM HAND
     eventBus.$on("computer-plays", (cardValue, suit) => {
 
-      let response = this.computer_hand.find(card => {
-        return this.getCardValue(card) > cardValue && card.suit === suit;
+      const playCard = card => {
+        this.computer_card = card;
+        this.removeComputerCard();
+      };
+
+      const sortedCompCards = this.computer_hand.sort((card1, card2) => {
+        return this.getCardValue(card1) - this.getCardValue(card2);
       });
 
-      if (response) {
-        this.computer_card = response;
-        this.removeComputerCard();
+      const cardsOfSuit = sortedCompCards.filter(card => {
+        return card.suit === suit;
+      });
+
+      const cardsOfSuitBeatsPlayer = cardsOfSuit.filter(card => {
+        return this.getCardValue(card) > cardValue;
+      });
+
+      if (cardsOfSuitBeatsPlayer.length) {
+        console.log("HIT");
+        playCard(cardsOfSuitBeatsPlayer[0]);
         this.computer_tricks += 1;
-      } 
-      else {
-        response = this.computer_hand.find(card => {
-          return card.suit === suit;
-        });
-          if (response) {
-            this.computer_card = response;
-            this.removeComputerCard()
-          } 
-          else {
-            this.computer_card = this.computer_hand[0];
-            this.removeComputerCard()
-          }
-        this.player_tricks +=1;
+      } else if (cardsOfSuit.length) {
+        playCard(cardsOfSuit[0]);
+        this.player_tricks += 1;
+      } else {
+        playCard(sortedCompCards[0]);
+        this.player_tricks += 1;
       }
+
+      // tries to find winning card of same suit
+      // let response = this.computer_hand.find(card => {
+      //   return this.getCardValue(card) > cardValue && card.suit === suit;
+      // });
+      //
+      // // play card, discard card, and add to comp score
+      // if (response) {
+      //   this.computer_card = response;
+      //   this.removeComputerCard();
+      //   this.computer_tricks += 1;
+      // } else {
+      //   // find any card of the suit that will make do
+      //   response = this.computer_hand.find(card => {
+      //     return card.suit === suit;
+      //   });
+      //
+      //   // if card of suit
+      //   if (response) {
+      //     // play card, discard card
+      //     this.computer_card = response;
+      //     this.removeComputerCard()
+      //   }
+      //   else {
+      //     // otherwise pick the first one, play and discard
+      //     this.computer_card = this.computer_hand[0];
+      //     this.removeComputerCard()
+      //   }
+      //   // player wins this round
+      //   this.player_tricks +=1;
+      // }
     });
   }
 };
